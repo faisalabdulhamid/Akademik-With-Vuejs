@@ -1,0 +1,22 @@
+<template>
+    <section class="modal" tabindex="-1" role="dialog" id="form-destroy" data-backdrop="static" data-keyboard="false">
+        <aside class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                    <h4 class="modal-title">Hapus Kelas</h4>
+                </div>
+                <div class="modal-body">
+                    Apakah Yakin Akan Menghapus Kelas ini?
+                </div>
+            </div>
+        </aside><!-- /.modal-dialog -->
+    </section><!-- /.modal -->
+</template>
+
+<script>
+    export default {
+        name: 'KelasDestroy',
+        props: ['kelas'],
+    }
+</script>

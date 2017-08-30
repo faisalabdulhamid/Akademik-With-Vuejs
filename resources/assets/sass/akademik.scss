@@ -1,0 +1,263 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Toastr
+@import "~toastr/package/toastr.scss";
+
+//Select 2
+@import "~select2/dist/css/select2.min";
+
+//font-awesome -- fa icon
+@import "~font-awesome/scss/font-awesome";
+
+//Navbar Atas
+nav{
+  background-color: $bg-navbar;
+  .container{
+    background-color: $bg-navbar;
+    button{
+      span{
+        background-color: lighten($bg-navbar, 30%);
+      }
+    }
+    a{
+      color: $color-navbar;
+    }
+    .navbar-toggle{
+      color: $color-navbar;
+      background-color: lighten($bg-navbar, 10%);
+    }
+    .nav{
+      li{
+        border-right: 1px solid $split-navbar;
+        a{
+          color: $color-navbar;
+          background-color: $bg-navbar;
+        }
+        a:hover, a.active, a:focus{
+          background-color: darken($bg-navbar, 10%);
+        }
+        ul{
+          background-color: lighten($bg-navbar, 10%);
+          li{
+            background-color: lighten($bg-navbar, 10%);
+            a{
+              background-color: lighten($bg-navbar, 10%);
+            }
+          }
+        }
+      }
+      li:last-child{
+        border-right: 0px;
+      }
+      li.open{
+        background-color: darken($bg-navbar, 10%);
+      }
+    }
+  }
+}
+
+footer{
+  margin-top: 51px;
+  //padding: 10px;
+  background-color: $bg-navbar;
+  border-top: 5px solid $split-navbar;
+
+  .container{
+
+    .nav{
+      display: block;
+      overflow-x: auto;
+      overflow-y: hidden;
+
+      li{
+        border-right: 1px solid $split-navbar;
+        display: inline;
+        //width: 70px;
+        a{
+          text-align: center;
+          padding-bottom: 5px;
+          color: $color-navbar;
+
+          i{
+            font-size: 20px;
+            position: relative;
+          }
+          small{
+            display: block;
+            position: relative;
+            text-transform: uppercase;
+            text-wrap: none;
+            font-weight: 600;
+          }
+          span{
+            position: absolute;
+            font-size: 60%;
+            display: inline;
+            right: 10px;
+            top: 10px;
+          }
+        }
+        a:hover, .active, a:focus{
+          background-color: darken($bg-navbar, 10%);
+        }
+
+      }
+      li:last-child{
+        border-right: 0px;
+      }
+    }
+  }
+
+}
+
+//text Pengumuman
+.text-slider{
+  bottom: 65px;
+  background-color: lighten($bg-navbar, 30%);
+  color: $color-navbar;
+  .info{
+    color: #3097D1;
+  }
+  .danger{
+    color: #bf5329;
+    font-weight: 900;
+  }
+}
+
+#app-main{
+  margin-top: 20px;
+  min-height: 600px;
+  //background-color: #e9f4eb;
+  .panel-body{
+    padding: 0px;
+  }
+  
+  .control-table{
+    display: flex;
+    div.form-group{
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    div.form-group:last-child{
+      margin-right: 0px;
+    }
+  }
+
+  table{
+    font-family: $font-family-table;
+    margin-bottom: 0px;
+    thead{
+      background-color: $bg-thead;
+      tr{
+        th:first-child{
+          width: 50px;
+        }
+        th:last-child{
+          width: 15%;
+        }
+      }
+    }
+
+  }
+
+  .pagination{
+    margin: 0px;
+  }
+  .clearfix-top{
+    height: 51px;
+  }
+  .clearfix-bottom{
+    height: 70px;
+  }
+}
+
+//Modal
+.modal{
+  vertical-align: middle;
+  .modal-dialog{
+
+    .modal-content{
+      border-radius: 0px;
+
+      a.close, button.close{
+        position: absolute;
+        right: -12.5px;
+        top: -12.5px;
+        display: block;
+        //text-indent: -9999px;
+        width: 28px;
+        height: 28px;
+        font-size: 30px;
+        background: #000;
+        opacity: 1;
+        color: #fff;
+        border-radius: 18px;
+        border: 2px solid #fff;
+        font-size: 12px;
+      }
+
+      a.error, button.error{
+        background: #bf5329;
+      }
+
+      a.warning, button.warning{
+        background: #cbb956;
+      }
+
+      a.info, button.info{
+        background: #7da8c3;
+      }
+      
+      .modal-header{
+        padding: 10px;
+      }
+      .modal-body{
+        padding: 5px 10px;
+        .form-group:last-child{
+          margin-bottom: 2px;
+        }
+      }
+      .modal-footer{
+        padding: 10px;
+      }
+    }
+  }
+}
+
+//Control-panel
+.control-panel{
+  div{
+    padding: 10px;
+    //margin: 10px;
+    .box-item{
+      vertical-align: middle;
+      color: #000;
+      height: 100px;
+      strong{
+        font-size: 30px;
+        display: block;
+      }
+      small{
+        font-size: 20px;
+      }
+      i{
+        float: right;
+        font-size: 80px;
+      }
+    }
+
+  }
+  .primary{background-color: #3097D1;}
+  .info{background-color: #8eb4cb;}
+  .success{background-color: #2ab27b;}
+  .warning{background-color: #cbb956;}
+  .danger{background-color: #bf5329;}
+}
