@@ -43,13 +43,29 @@ class KelasController extends Controller
     public function create()
     {
         if(request()->ajax()){
-            return fractal($this->kelas, function(Kelas $kelas){
-                return [
-                    'id' => '',
-                    'kelas' => '',
-                    'wali_kelas' => '',
-                ];
-            })->toJson();
+            $create['KelasSchema'] = [
+                'fields' => [
+                    [
+                        'type' => "input",
+                        'inputType' => "text",
+                        'label' => "Kelas",
+                        'model' => "kelas",
+                        'required' => true,
+                        'validator' => ['string'],
+                    ],
+                    [
+                        'type' => "select",
+                        'label' => "Wali Kelas",
+                        'model' => "wali_kelas",
+                        'required' => true,
+                        'values' => [],
+                    ]
+                ]
+            ];
+            $create['SiswaSchema'] = '';
+            $create['MapelSchema'] = '';
+
+            return response()->json($create, 200);
         }
     }
 

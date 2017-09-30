@@ -11,6 +11,8 @@ class SiswaController extends Controller
     protected $siswa;
 
     public function __construct(Siswa $siswa){
+        $this->middleware(['auth']);
+
         $this->siswa = $siswa;
     }
     /**
@@ -21,7 +23,17 @@ class SiswaController extends Controller
     public function index()
     {
         if(request()->ajax()){
-            return Datatables::of($this->siswa->query())->make(true);
+            if(request()->kelas == 'all'){
+                return Datatables::of($this->siswa->select(['nis', 'nama', 'jenis_kelamin']))->make(true);
+            }else{
+                $kelas = request()->kelas;
+                $siswa = $this->siswa->select(['nis', 'nama', 'jenis_kelamin'])
+                    ->whereHas('kelas', function($q) use($kelas){
+                        $q->where('id', $kelas);
+                    });
+                return Datatables::of($siswa)->make(true);
+            }
+
         }
         return view('siswa.index');
     }

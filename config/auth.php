@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'guru',
         'passwords' => 'users',
     ],
 
@@ -36,7 +36,11 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'guru' => [
+            'driver' => 'session',
+            'provider' => 'pegawai',
+        ],
+        'staff' => [
             'driver' => 'session',
             'provider' => 'pegawai',
         ],

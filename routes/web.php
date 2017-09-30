@@ -38,9 +38,17 @@ Route::get('wali-kelas', function(){
     if(request()->ajax()){
         return fractal(App\Models\Pegawai::all(), function(App\Models\Pegawai $waliKelas){
             return [
-                'nip' => $waliKelas->nip,
-                'nama' => $waliKelas->nama
+                'id' => $waliKelas->nip,
+                'name' => $waliKelas->nama
             ];
         })->toJson();
     }
 });
+
+
+//Route::post('login', 'Auth@login')->name('login');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+

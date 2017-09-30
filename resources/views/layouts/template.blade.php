@@ -11,7 +11,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @stack('css')
     {{ Html::style('css/akademik.css') }}
-
+    {{ Html::style('css/pace-theme-flash.css') }}
 
 </head>
 <body>
@@ -47,7 +47,12 @@
                         Faisal <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Logout</a> </li>
+                        <li>
+                            <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -61,9 +66,8 @@
 
     <index></index>
 
-    <div class="clearfix-bottom hidden-lg"></div>
+    <div class="clearfix-bottom"></div>
     <!-- /.Main -->
-    @yield('modal')
 </div>
 
 <footer class="hidden-xs  navbar-fixed-bottom">
@@ -112,9 +116,9 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('tahun-ajaran.index') }}">
                     <i class="fa fa-university"></i>
-                    <small>Alumni</small>
+                    <small>Tahun Ajaran</small>
                     <span class="label label-danger">3</span>
                 </a>
             </li>
@@ -149,7 +153,7 @@
     <marquee><small class="danger">Pengumumna</small></marquee>
 </section>
 
+{{--<div class="loading-backdrop in"></div>--}}
 @stack('js')
-
 </body>
 </html>

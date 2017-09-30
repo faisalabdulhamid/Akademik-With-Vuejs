@@ -155,15 +155,20 @@ footer{
     font-family: $font-family-table;
     margin-bottom: 0px;
     thead{
-      background-color: $bg-thead;
+      background-color: lighten($bg-navbar, 40%);
+      color: lighten($color-navbar, 10%);
       tr{
-        th:first-child{
+        th:first-child.no, th.no{
           width: 50px;
         }
-        th:last-child{
+        th:last-child.action, th.action{
           width: 15%;
         }
       }
+    }
+
+    td.no{
+      width: 50px;
     }
 
   }
@@ -231,6 +236,10 @@ footer{
     }
   }
 }
+#modal-siswa.in ~ .modal-backdrop.in {
+  background-color: #f00;
+  z-index: 1055;
+}
 
 //Control-panel
 .control-panel{
@@ -260,4 +269,148 @@ footer{
   .success{background-color: #2ab27b;}
   .warning{background-color: #cbb956;}
   .danger{background-color: #bf5329;}
+}
+
+
+//Form-modal-header
+//.vue-form-generator{
+//  @extend .form-horizontal;
+//
+//  .form-group{
+//    @extend .form-group-sm;
+//
+//    label{
+//      @extend .control-label;
+//      @extend .col-xs-3;
+//    }
+//
+//    .field-wrap{
+//      @extend .col-xs-9;
+//    }
+//
+//    .help-block{
+//      margin-left: 27%;
+//    }
+//  }
+//}
+
+//Tab Cicle
+.tabs-nav{
+  margin-bottom: 20px;
+
+  li.active, li:active, li:hover{
+    a, a:active, a:focus{
+      background-color: #fff;
+      border-color: none;
+    }
+  }
+  li{
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    a{
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      padding: 0;
+      margin: 0 auto;
+      color: rgba(0,0,0,.2);
+      position: relative;
+      top: 3px;
+
+      .tab-icon-circle{
+        margin: 5px auto;
+        font-size: 18px;
+        border: 3px solid lighten($bg-navbar, 40%);
+        border-radius: 50%;
+        font-weight: 600;
+        width: 70px;
+        height: 70px;
+        background-color: lighten($bg-navbar, 40%);
+        position: relative;
+        justify-content: center;
+        display: -webkit-box;
+        /* display: -ms-flexbox; */
+        /* display: flex; */
+        /* -webkit-box-pack: center; */
+        /* -ms-flex-pack: center; */
+        /* justify-content: center; */
+        -ms-flex-line-pack: center;
+        align-content: center;
+        align-items: center;
+
+        .tab-icon-container{
+          display: flex;
+          justify-content: center;
+          -webkit-box-flex: 1;
+          flex: 1;
+          border-radius: 40%;
+
+          .tab-icon{
+            color: #fff;
+            font-size: 24px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            /* align-items: center; */
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            transition: all .2s linear;
+            align-items: center;
+          }
+        }
+      }
+
+      span{
+        color: lighten($bg-navbar, 40%);
+      }
+    }
+  }
+
+  li.active{
+    a{
+      .tab-icon-circle{
+        background-color: $bg-navbar;
+        border: 3px solid $bg-navbar;
+      }
+      span{
+        color: $bg-navbar;
+      }
+    }
+  }
+  li:after{
+    border-right: 2px solid #000;
+  }
+}
+
+
+//Loading
+.v-spinner{
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  z-index: 1102;
+}
+.loading-backdrop{
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1100;
+  background-color: #000;
+}
+.loading-backdrop.in{
+  opacity: 0.5;
 }

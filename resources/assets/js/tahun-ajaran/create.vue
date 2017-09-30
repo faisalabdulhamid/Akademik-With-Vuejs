@@ -8,12 +8,13 @@
                 </div>
                 <form class="form-horizontal" role="form" @submit.prevent="simpan">
                     <div class="modal-body">
-                        <div class="form-group form-group-sm">
+                        <div :class="{ 'form-group form-group-sm': true, 'has-error': errors.has('tahun_ajaran') }">
                             <label class="control-label col-md-3">
                                 Tahun Ajaran
                             </label>
                             <div class="col-md-9">
-                                <input class="form-control" v-model="form.tahun_ajaran">
+                                <input class="form-control" v-model="form.tahun_ajaran" name="tahun_ajaran"  v-validate="'required'">
+                                <span v-show="errors.has('tahun_ajaran')" class="help-block">{{ errors.first('tahun_ajaran') }}</span>
                             </div>
                         </div>
                     </div>

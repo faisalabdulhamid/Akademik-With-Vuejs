@@ -9,7 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Siswa extends Model
 {
     use SoftDeletes;
-    use LogsActivity;
+//    use LogsActivity;
 
     protected $table = "siswa";
     protected $primaryKey = 'nis';

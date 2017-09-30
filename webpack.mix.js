@@ -12,14 +12,17 @@ let mix = require('laravel-mix');
  */
 
 mix
-    .js('resources/assets/js/akademik.js', 'public/js')
+    //.js('resources/assets/js/akademik.js', 'public/js')
 
-    .js('resources/assets/js/tahun-ajaran/tahun-ajaran.js', 'public/js')
+    //.js('resources/assets/js/tahun-ajaran/tahun-ajaran.js', 'public/js')
 
     .js('resources/assets/js/siswa/siswa.js', 'public/js')
-    .js('resources/assets/js/kelas/kelas.js', 'public/js')
+    //.js('resources/assets/js/kelas/kelas.js', 'public/js')
 
-   .sass('resources/assets/sass/akademik.scss', 'public/css')
+    .sass('resources/assets/sass/akademik.scss', 'public/css')
+    //
+    //.js('resources/assets/js/login/login.js', 'public/js')
+    //.sass('resources/assets/sass/login.scss', 'public/css')
 
     //.copy('node_modules/pace-js/pace.min.js', 'public/js')
     //.copy('node_modules/pace-js/themes/blue/pace-theme-flash.css', 'public/css')

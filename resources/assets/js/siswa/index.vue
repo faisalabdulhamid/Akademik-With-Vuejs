@@ -11,34 +11,36 @@
                     <div class="form-group form-group-sm">
                         <select class="form-control" v-model="params.kelas" v-on:change="fetchSiswa">
                             <option value="all">Semuanya</option>
-                            <option v-for="item in kelas">Kelas 1</option>
+                            <option v-for="item in kelas.data" :value="item.id">{{ item.kelas }}</option>
                         </select>
                     </div>
                     <div class="form-group form-group-sm">
-                        <select class="form-control">
-                            <option>10</option>
+                        <select class="form-control" v-model="model.input.length"  v-on:change="fetchSiswa">
+                            <option>20</option>
                             <option>30</option>
                             <option>50</option>
-                            <option>all</option>
                         </select>
                     </div>
                 </div>
             </aside>
 
             <aside class="panel-body">
-                <table class="table table-responsive table-bordered">
+
+                <!--<pulse-loader :loading="loading" :color="color" :size="size"></pulse-loader>-->
+
+                <table class="table table-responsive table-bordered" id="data-siswa">
                     <thead>
                     <tr>
-                        <th>No</th>
+                        <th class="no">No</th>
                         <th>NIS</th>
                         <th>Nama</th>
                         <th>L/P</th>
-                        <th>Action</th>
+                        <th class="action">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="(item, index) in model.data">
-                        <td>{{ index+1 }}</td>
+                        <td class="text-center">{{ parseInt(model.input.start)+index+1 }}</td>
                         <td>{{ item.nis }}</td>
                         <td>{{ item.nama }}</td>
                         <td>{{ item.jenis_kelamin }}</td>
@@ -53,6 +55,7 @@
             </aside>
 
             <aside class="panel-footer">
+                <b>Jumlah Data : </b>{{ model.recordsTotal }}
                 <ul class="pagination pagination-sm pull-right">
                     <li><a v-on:click="kembali"><i class="fa fa-arrow-left"></i> </a></li>
                     <li><a v-on:click="lanjut"><i class="fa fa-arrow-right"></i> </a></li>
@@ -63,24 +66,35 @@
 
         <create :siswa="siswa"></create>
         <show :siswa="siswa"></show>
-        <edit :siswa="siswa"></edit>
+        <!--<edit :siswa="siswa"></edit>-->
         <destroy :siswa="siswa"></destroy>
+
+        <pulse-loader :loading="loading" :color="color" :size="size"></pulse-loader>
 
     </div>
 </template>
-
+<style lang="sass">
+    @import "siswa.scss";
+</style>
 <script>
+    
     export default {
         name: 'SiswaIndex',
         data: function(){
             return {
                 model: {
-                    data: []
+                    data: [],
+                    input: {
+                        start: 0,
+                        length: 20
+                    }
                 },
                 params: {
-                   kelas: 'all',
+                    kelas: 'all'
                 },
-                kelas: {},
+                kelas: {
+                    data: ''
+                },
                 siswa: {
                     'nis' : '',
                     'nisn' : '',
@@ -113,55 +127,75 @@
                     'telepon_wali': '',
                     'alamat_wali': '',
                 },
+                source: 'siswa',
+                //Loading
+                color: '#000',
+                size: '40px',
+                radius: '100%',
+                loading: false,
             }
         },
         mounted: function() {
             $('[data-tgl="tooltip"]').tooltip();
         },
+        ready(){
+            $('[data-tgl="tooltip"]').tooltip();
+        },
         beforeMount: function(){
             this.fetchSiswa();
             this.fetchKelas();
+//            this.createBackdrop();
+
+//            this.removeBackdrop();'
         },
         methods: {
             fetchSiswa: function(){
-                var vm = this;
+                var vm = this
+                vm.loading = true
                 axios.get(this.buildURL())
-                        .then(function(res){
-                            Vue.set(vm.$data, 'model', res.data);
-                            toastr.error("Error");
-                        })
-                        .catch(function(e){
-                            console.log(e);
-                        })
+                    .then((res) => {
+                        vm.loading = false
+                        Vue.set(vm.$data, 'model',res.data);
+                    }, (e) => {
+                        vm.loading = false
+                        toastr.error(e);
+                    });
 
             },
             fetchKelas: function(){
                 var vm = this;
-                axios.get('kelas')
-                        .then(function(res){
-                            console.log(res.data.data);
-                            Vue.set(vm.$data, 'model', res.data);
-                        })
-                        .catch(function(){
-
-                        })
+                axios.get('api/kelas')
+                    .then(function(res){
+                        Vue.set(vm.$data, 'kelas', res.data);
+                    })
+                    .catch(function(e){
+                        toastr.error(e);
+                    })
             },
             kembali: function(){
-
+                if(parseInt(this.model.input.start) > 0){
+                    this.model.input.start = parseInt(this.model.input.start) - parseInt(this.model.input.length);
+                    this.fetchSiswa();
+                }
             },
             lanjut: function(){
-
+                if((parseInt(this.model.input.start) + parseInt(this.model.input.length)) < parseInt(this.model.recordsTotal)){
+                    this.model.input.start = parseInt(this.model.input.start) + parseInt(this.model.input.length);
+                    this.fetchSiswa();
+                }
             },
             buildURL: function(){
-                return `siswa`;
+                return `${this.source}?start=${this.model.input.start}&length=${this.model.input.length}&kelas=${this.params.kelas}`;
             },
             create: function(){
                 var vm = this;
+                vm.loading = true;
                 axios.get('siswa/create').then(function(res){
+                    vm.loading = false;
                     Vue.set(vm.$data, 'siswa', res.data.data);
                     $("#form-create").modal("show");
                 }).catch(function(e){
-                    console.log(e);
+                    toastr.error(e);
                 });
             },
             show: function(nis){
@@ -170,17 +204,17 @@
                     Vue.set(vm.$data, 'siswa', res.data.data);
                     $("#form-show").modal("show");
                 }).catch(function(e){
-                    console.log(e);
+                    toastr.error(e);
                 });
             },
             edit: function(nis){
-                var vm = this;
-                axios.get('siswa/'+nis).then(function(res){
-                    Vue.set(vm.$data, 'siswa', res.data.data);
-                    $("#form-edit").modal("show");
-                }).catch(function(e){
-                    console.log(e);
-                });
+//                var vm = this;
+//                axios.get('siswa/'+nis).then(function(res){
+//                    Vue.set(vm.$data, 'siswa', res.data.data);
+//                    $("#form-edit").modal("show");
+//                }).catch(function(e){
+//                toastr.error(e);
+//                });
 
             },
             destroy: function(nis){
@@ -189,9 +223,16 @@
                     Vue.set(vm.$data, 'siswa', res.data.data);
                     $("#form-destroy").modal("show");
                 }).catch(function(e){
-                    console.log(e);
+                    toastr.error(e);
                 });
+            },
+            updateProgress(value)
+            {
+                console.log(value)
             }
+        },
+        watch: {
+
         }
     }
 </script>

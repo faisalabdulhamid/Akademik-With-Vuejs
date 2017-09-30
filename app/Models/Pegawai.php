@@ -12,12 +12,12 @@ class Pegawai extends Authenticatable
     use Notifiable;
     use LogsActivity;
     use EntrustUserTrait;
-
+//    protected $guard = 'pegawai';
     protected $table = "pegawai";
     protected $primaryKey = 'nip';
     protected $visible = ['nip', 'nama'];
     public $incrementing = false;
-    protected $hidden = ['password'];
+    protected $hidden = ['password', 'remember_token'];
 
     protected $dates = ['deleted_at'];
 

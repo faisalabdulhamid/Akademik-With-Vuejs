@@ -7,12 +7,12 @@
                     <h4 class="modal-title">Data Diri Peserta Didik</h4>
                 </div>
                 <div class="modal-body">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" id="show-siswa">
                         <tbody>
                         <tr>
-                            <td>1.</td>
+                            <td class="no">1.</td>
                             <td>Nama Peserta Didik</td>
-                            <td>:</td>
+                            <td class="no">:</td>
                             <td>{{ siswa.nama }}</td>
                         </tr>
                         <tr>
@@ -118,7 +118,9 @@
         </aside><!-- /.modal-dialog -->
     </section><!-- /.modal -->
 </template>
-
+<style lang="sass">
+    @import "siswa.scss";
+</style>
 <script>
     export default {
         name: 'SiswaShow',

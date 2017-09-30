@@ -1,0 +1,13 @@
+$bg: #1b1b1b;
+$color: #d1d1d1;
+
+table#show-siswa{
+  tr{
+    td:nth-child(1), td:nth-child(3){
+      width: 30px;
+    }
+    td:nth-child(2){
+      width: 30%;
+    }
+  }
+}

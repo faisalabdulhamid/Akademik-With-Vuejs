@@ -1,9 +1,4 @@
 {
     "/js/siswa.js": "/js/siswa.js",
-    "/js/kelas.js": "/js/kelas.js",
-    "/js/tahun-ajaran.js": "/js/tahun-ajaran.js",
-    "/js/akademik.js": "/js/akademik.js",
-    "/css/akademik.css": "/css/akademik.css",
-    "/css/select2.min.css": "/css/select2.min.css",
-    "/js/select2.min.js": "/js/select2.min.js"
+    "/css/akademik.css": "/css/akademik.css"
 }

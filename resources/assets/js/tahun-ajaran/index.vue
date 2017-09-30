@@ -12,9 +12,9 @@
                 <table class="table table-responsive table-bordered">
                     <thead>
                     <tr>
-                        <th>No</th>
+                        <th class="no">No</th>
                         <th>Tahun Ajaran</th>
-                        <th>Action</th>
+                        <th class="action">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -63,7 +63,7 @@
                 axios.get(this.buildURL())
                         .then(function(res){
                             Vue.set(vm.$data, 'model', res.data);
-                            toastr.error("Error");
+
                         })
                         .catch(function(e){
                             console.log(e);
