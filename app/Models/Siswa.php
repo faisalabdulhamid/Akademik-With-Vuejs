@@ -32,4 +32,9 @@ class Siswa extends Model
         return $this->belongsToMany(Kelas::class, 'kelas_siswa', 'nis', 'kelas_id');
     }
 
+    public function withOrangTua()
+    {
+        return $this->orangTua->firts();
+    }
+
 }

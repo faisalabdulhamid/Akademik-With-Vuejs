@@ -4,7 +4,7 @@
 //require('./bootstrap');
 import id from 'vee-validate/dist/locale/id';
 import VeeValidate, { Validator } from 'vee-validate';
-import {config_vee} from '../config/vee_validate.js';
+import {config_vee} from '../siswa/store/globalStore.js';
 
 window.Vue = require('vue');
 require('../bootstrap');

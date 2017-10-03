@@ -3,7 +3,7 @@
         <div :class="{'form-group form-group-sm': true, 'has-error': errors.has('nis')}">
             <label class="control-label col-md-3">NIS</label>
             <div class="col-md-9">
-                <input type="text" name="nis" class="form-control" v-model="nis">
+                <input type="text" class="form-control" name="nis" v-model="nis">
                 <span v-show="errors.has('nis')" class="help-block">{{ errors.first('nis') }}</span>
             </div>
         </div>
@@ -87,7 +87,7 @@
         <div :class="{'form-group form-group-sm': true, 'has-error': errors.has('alamat')}">
             <label class="control-label col-md-3">Alamat</label>
             <div class="col-md-9">
-                <input type="text" name="alamat" class="form-control" v-model="alamat" @input="alamat=$event.target.value.toUpperCase()">
+                <textarea name="alamat" class="form-control" v-model="alamat" @input="alamat=$event.target.value.toUpperCase()"></textarea>
                 <span v-show="errors.has('alamat')" class="help-block">{{ errors.first('alamat') }}</span>
             </div>
         </div>
@@ -110,6 +110,7 @@
 
 <script>
     import { Validator } from 'vee-validate';
+    import {mapGetters, mapActions} from 'vuex'
 
     const nisUnique = {
         getMessage(field){
@@ -120,7 +121,6 @@
                 return axios.get('api/check/nis', {params: {nis: value}}).then(function(res){
                     return res.data.error;
                 });
-                //return true;
             }else{
                 return false;
             }
@@ -147,24 +147,113 @@
     Validator.extend('checkNisn', nisnUnique);
 
     export default {
-        props: ['model'],
+        props: {
+            model: Object
+        },
         name: 'FormSiswa',
         data: function(){
             return {
-                nis: '',
-                nisn: '',
-                nama: '',
-                jenis_kelamin: '',
-                tempat_lahir: '',
-                tanggal_lahir: '',
-                agama: '',
-                anak_ke: '',
-                status_keluarga: '',
-                alamat: '',
-                telepon: '',
-                email: '',
                 errors: null,
             };
+        },
+        computed: {
+            nis: {
+                get(){
+                    return this.$store.state.Siswa.siswa.nis
+                },
+                set(value){
+                    this.$store.commit('updateValue', {field: 'nis', value})
+                }
+            },
+            nisn: {
+                get(){
+                    return this.$store.state.Siswa.siswa.nisn
+                },
+                set(value){
+                    this.$store.commit('updateValue', {field: 'nisn', value})
+                }
+            },
+            nama: {
+                get(){
+                    return this.$store.state.Siswa.siswa.nama
+                },
+                set(value){
+                    this.$store.commit('updateValue', {field: 'nama', value})
+                }
+            },
+            jenis_kelamin: {
+                get(){
+                    return this.$store.state.Siswa.siswa.jenis_kelamin
+                },
+                set(value){
+                    this.$store.commit('updateValue', {field: 'jenis_kelamin', value})
+                }
+            },
+            tempat_lahir: {
+                get(){
+                    return this.$store.state.Siswa.siswa.tempat_lahir
+                },
+                set(value){
+                    this.$store.commit('updateValue', {field: 'tempat_lahir', value})
+                }
+            },
+            tanggal_lahir: {
+                get(){
+                    return this.$store.state.Siswa.siswa.tanggal_lahir;//moment(this.$store.state.Siswa.siswa.tanggal_lahir).format('DD-MM-YYYY')
+                },
+                set(value){
+                    console.log(value)
+                    this.$store.commit('updateValue', {field: 'tanggal_lahir', value})
+                }
+            },
+            agama: {
+                get(){
+                    return this.$store.state.Siswa.siswa.agama
+                },
+                set(value){
+                    this.$store.commit('updateValue', {field: 'agama', value})
+                }
+            },
+            anak_ke: {
+                get(){
+                    return this.$store.state.Siswa.siswa.anak_ke
+                },
+                set(value){
+                    this.$store.commit('updateValue', {field: 'anak_ke', value})
+                }
+            },
+            status_keluarga: {
+                get(){
+                    return this.$store.state.Siswa.siswa.status_keluarga
+                },
+                set(value){
+                    this.$store.commit('updateValue', {field: 'status_keluarga', value})
+                }
+            },
+            alamat: {
+                get(){
+                    return this.$store.state.Siswa.siswa.alamat
+                },
+                set(value){
+                    this.$store.commit('updateValue', {field: 'alamat', value})
+                }
+            },
+            telepon: {
+                get(){
+                    return this.$store.state.Siswa.siswa.telepon
+                },
+                set(value){
+                    this.$store.commit('updateValue', {field: 'telepon', value})
+                }
+            },
+            email: {
+                get(){
+                    return this.$store.state.Siswa.siswa.email
+                },
+                set(value){
+                    this.$store.commit('updateValue', {field: 'email', value})
+                }
+            },
         },
         watch: {
             nis(value) {
@@ -221,20 +310,6 @@
                     email: this.email,
                 });
 
-                this.model.nis = this.nis;
-                this.model.nisn = this.nisn;
-                this.model.nama = this.nama;
-                this.model.jenis_kelamin = this.jenis_kelamin;
-                this.model.tempat_lahir = this.tempat_lahir;
-                this.model.tanggal_lahir = this.tanggal_lahir;
-                this.model.agama = this.agama;
-                this.model.anak_ke = this.anak_ke;
-                this.model.status_keluarga = this.status_keluarga;
-                this.model.alamat = this.alamat;
-                this.model.telepon = this.telepon;
-                this.model.email = this.email;
-
-
                 let isValid = this.errors.items.length;
                 if(isValid == 0)
                 {
@@ -242,72 +317,61 @@
                 }
                 return false;
             },
-            getData: function(){
-                return {
-                    nis: this.nis,
-                    nisn: this.nisn,
-                    nama: this.nama,
-                    jenis_kelamin: this.jenis_kelamin,
-                    tempat_lahir: this.tempat_lahir,
-                    tanggal_lahir: this.tanggal_lahir,
-                    agama: this.agama,
-                    anak_ke: this.anak_ke,
-                    status_keluarga: this.status_keluarga,
-                    alamat: this.alamat,
-                    telepon: this.telepon,
-                    email: this.email,
-                };
-            },
             clearErrors() {
                 this.errors.clear();
             },
-            clearData(){
-                this.nis= '';
-                this.nisn= '';
-                this.nama= '';
-                this.jenis_kelamin= '';
-                this.tempat_lahir= '';
-                this.tanggal_lahir= '';
-                this.agama= '';
-                this.anak_ke= '';
-                this.status_keluarga= '';
-                this.alamat= '';
-                this.telepon= '';
-                this.email= '';
-            }
         },
         created() {
-            this.validator = new Validator({
-                nis: 'required|numeric|digits:9|checkNis',
-                nisn: 'required|numeric|digits:10|',
-                nama: 'required|alpha_spaces',
-                jenis_kelamin: 'required',
-                tempat_lahir: 'required|alpha_spaces',
-                tanggal_lahir: 'required|date_format:DD-MM-YYYY',
-                agama: 'required',
-                anak_ke: 'numeric',
-                status_keluarga: '',
-                alamat: '',
-                telepon: 'numeric',
-                email: 'email',
-            });
+            if(this.$route.meta.mode === 'edit')
+            {
+                this.validator = new Validator({
+                    nis: 'required|numeric|digits:9',
+                    nisn: 'required|numeric|digits:10',
+                    nama: 'required|alpha_spaces',
+                    jenis_kelamin: 'required',
+                    tempat_lahir: 'required|alpha_spaces',
+                    tanggal_lahir: 'required|date_format:DD-MM-YYYY',
+                    agama: 'required',
+                    anak_ke: 'numeric',
+                    status_keluarga: '',
+                    alamat: '',
+                    telepon: 'numeric',
+                    email: 'email',
+                });
+            }else{
+                this.validator = new Validator({
+                    nis: 'required|numeric|digits:9|checkNis',
+                    nisn: 'required|numeric|digits:10|checkNisn',
+                    nama: 'required|alpha_spaces',
+                    jenis_kelamin: 'required',
+                    tempat_lahir: 'required|alpha_spaces',
+                    tanggal_lahir: 'required|date_format:DD-MM-YYYY',
+                    agama: 'required',
+                    anak_ke: 'numeric',
+                    status_keluarga: '',
+                    alamat: '',
+                    telepon: 'numeric',
+                    email: 'email',
+                });
+            }
             this.$set(this, 'errors', this.validator.errors);
         },
         ready(){
-//            $('#tanggal_lahir').datetimepicker();
+
         },
         mounted: function(){
             var vm = this;
             $('#tanggal_lahir')
                     .datetimepicker({
-                        format: 'DD-MM-YYYY'
+                        format: 'DD-MM-YYYY',
+                        defaultDate: moment().subtract(16, 'year'),
                     })
                     .on('dp.change', function(e){
                         vm.tanggal_lahir = e.date.format('DD-MM-YYYY');
-                    });
+                    })
         },
-        components: {
-//            'tanggal-lahir':
+        beforeMount: function(){
+
         }
     }
 </script>

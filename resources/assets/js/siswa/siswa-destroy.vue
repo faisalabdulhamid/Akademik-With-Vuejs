@@ -3,7 +3,7 @@
         <aside class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on:click="$router.go(-1)"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
                     <h4 class="modal-title">Hapus Peserta Didik</h4>
                 </div>
                 <div class="modal-body">
@@ -17,6 +17,13 @@
 <script>
     export default {
         name: 'SiswaDestroy',
-        props: ['siswa'],
+        data: function(){
+            return {
+                siswa: {}
+            }
+        },
+        mounted: function(){
+            $('#form-destroy').modal('show');
+        }
     }
 </script>

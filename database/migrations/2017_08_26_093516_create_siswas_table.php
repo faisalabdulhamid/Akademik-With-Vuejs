@@ -37,6 +37,10 @@ class CreateSiswasTable extends Migration
             $table->string('email', 100)->nullable()->unique();
             $table->string('password')->nullable();
 
+            //JSON VALUE
+            $table->text('prestasi')->nullable();
+            $table->text('beasiswa')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

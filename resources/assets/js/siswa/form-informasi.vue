@@ -17,7 +17,7 @@
             <tr v-for="(item, idx) in prestasi">
                 <td>{{idx+1}}</td>
                 <td>
-                    <select class="form-control input-sm" v-model="prestasi[idx].jenis_prestasi">
+                    <select class="form-control input-sm" v-model="item.jenis_prestasi" v-on:change="changePrestasiJenis(idx, item.jenis_prestasi)">
                         <option>Sains</option>
                         <option>Seni</option>
                         <option>Olahraga</option>
@@ -25,7 +25,7 @@
                     </select>
                 </td>
                 <td>
-                    <select class="form-control input-sm" v-model="prestasi[idx].tingkat">
+                    <select class="form-control input-sm" v-model="item.tingkat" v-on:change="changePrestasiTingkat(idx, item.tingkat)">
                         <option>Sekolah</option>
                         <option>Kecamatan</option>
                         <option>Kab/Kota</option>
@@ -34,16 +34,16 @@
                     </select>
                 </td>
                 <td>
-                    <input class="form-control input-sm" v-model="prestasi[idx].nama">
+                    <input class="form-control input-sm" v-model="item.nama" v-on:change="changePrestasiNama(idx, item.nama)">
                 </td>
                 <td>
-                    <input class="form-control input-sm" v-model="prestasi[idx].tahun" name="tahun_prestasi">
+                    <input class="form-control input-sm" v-model="item.tahun" name="tahun_prestasi" v-on:change="changePrestasiTahun(idx, item.tahun)">
                 </td>
                 <td>
-                    <input class="form-control input-sm" v-model="prestasi[idx].penyelenggara">
+                    <input class="form-control input-sm" v-model="item.penyelenggara" v-on:change="changePrestasiPenyelenggara(idx, item.penyelenggara)">
                 </td>
                 <td>
-                    <a class="btn btn-default btn-sm" @click.stop="prestasi.splice(idx, 1)"><i class="fa fa-times"></i></a>
+                    <a class="btn btn-default btn-sm" @click.stop="removePrestasi(idx)"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
             </tbody>
@@ -69,7 +69,7 @@
                     {{idx+1}}
                 </td>
                 <td>
-                    <select class="form-control input-sm" v-model="item.jenis">
+                    <select class="form-control input-sm" v-model="item.jenis" v-on:change="changeBeasiswaJenis(idx, item.jenis)">
                         <option>Anak Berprestasi</option>
                         <option>Anak Miskin</option>
                         <option>Pendidikan</option>
@@ -78,16 +78,16 @@
                     </select>
                 </td>
                 <td>
-                    <input class="form-control input-sm" v-model="item.penyelengara">
+                    <input class="form-control input-sm" v-model="item.penyelenggara" v-on:change="changeBeasiswaPenyelenggara(idx, item.penyelenggara)">
                 </td>
                 <td>
-                    <input class="form-control input-sm" v-model="item.tahun_mulai" id="tahun-mulai" name="tahun_mulai">
+                    <input class="form-control input-sm" v-model="item.tahun_mulai" id="tahun-mulai" name="tahun_mulai" v-on:change="changeBeasiswaTahunMulai(idx, item.tahun_mulai)">
                 </td>
                 <td>
-                    <input class="form-control input-sm" v-model="item.tahun_selesai" id="tahun-selesai" name="tahun_selesai">
+                    <input class="form-control input-sm" v-model="item.tahun_selesai" id="tahun-selesai" name="tahun_selesai" v-on:change="changeBeasiswaTahunSelesai(idx, item.tahun_selesai)">
                 </td>
                 <td>
-                    <a class="btn btn-default btn-sm" @click.stop="beasiswa.splice(idx, 1)"><i class="fa fa-times"></i></a>
+                    <a class="btn btn-default btn-sm" @click.stop="removeBesiswa(idx)"><i class="fa fa-times"></i></a>
                 </td>
             </tr>
             </tbody>
@@ -101,21 +101,21 @@
         data: function(){
             return {
                 prestasi: [
-                    {
-                        jenis_prestasi: 'Sains',
-                        tingkat: 'Sekolah',
-                        nama: '',
-                        tahun: '',
-                        penyelenggara: ''
-                    }
+//                    {
+//                        jenis_prestasi: 'Sains',
+//                        tingkat: 'Sekolah',
+//                        nama: '',
+//                        tahun: '',
+//                        penyelenggara: ''
+//                    }
                 ],
                 beasiswa:[
-                    {
-                        jenis: 'Anak Berprestasi',
-                        penyelengara: '',
-                        tahun_mulai: '',
-                        tahun_selesai: '',
-                    },
+//                    {
+//                        jenis: 'Anak Berprestasi',
+//                        penyelengara: '',
+//                        tahun_mulai: '',
+//                        tahun_selesai: '',
+//                    },
                 ]
             }
         },
@@ -130,45 +130,100 @@
                 });
             },
             removePrestasi: function(idx){
-
+                this.prestasi.splice(idx, 1);
+                let strJson = JSON.stringify(this.prestasi);
+                this.$store.commit('updateValue', {field: 'prestasi', value:strJson})
             },
             addBeasiswa: function(){
                 this.beasiswa.push({
                     jenis: 'Anak Berprestasi',
-                    penyelengara: '',
+                    penyelenggara: '',
                     tahun_mulai: '',
                     tahun_selesai: '',
                 });
             },
             removeBesiswa: function(idx){
+                this.beasiswa.splice(idx, 1);
+                let strJson = JSON.stringify(this.beasiswa);
+                this.$store.commit('updateValue', {field: 'beasiswa', value:strJson})
+            },
+            changePrestasiJenis: function(idx, value){
+                this.prestasi[idx].jenis_prestasi = value;
+                let strJson = JSON.stringify(this.prestasi);
+                this.$store.commit('updateValue', {field: 'prestasi', value:strJson})
+            },
+            changePrestasiTingkat: function(idx, value){
+                this.prestasi[idx].tingkat = value;
+                let strJson = JSON.stringify(this.prestasi);
+                this.$store.commit('updateValue', {field: 'prestasi', value:strJson})
+            },
+            changePrestasiNama: function(idx, value){
+                this.prestasi[idx].nama = value;
+                let strJson = JSON.stringify(this.prestasi);
+                this.$store.commit('updateValue', {field: 'prestasi', value:strJson})
+            },
+            changePrestasiTahun: function(idx, value){
+                this.prestasi[idx].tahun = value;
+                let strJson = JSON.stringify(this.prestasi);
+                this.$store.commit('updateValue', {field: 'prestasi', value:strJson})
+            },
+            changePrestasiPenyelenggara: function(idx, value){
+                this.prestasi[idx].penyelenggara = value;
+                let strJson = JSON.stringify(this.prestasi);
+                this.$store.commit('updateValue', {field: 'prestasi', value:strJson})
+            },
+            changeBeasiswaJenis: function(idx, value){
+                this.beasiswa[idx].jenis = value;
+                let strJson = JSON.stringify(this.beasiswa);
+                this.$store.commit('updateValue', {field: 'beasiswa', value:strJson})
+            },
+            changeBeasiswaPenyelenggara: function(idx, value){
+                this.beasiswa[idx].penyelenggara = value;
+                let strJson = JSON.stringify(this.beasiswa);
+                this.$store.commit('updateValue', {field: 'beasiswa', value:strJson})
+            },
+            changeBeasiswaTahunMulai: function(idx, value){
+                this.beasiswa[idx].tahun_mulai = value;
+                let strJson = JSON.stringify(this.beasiswa);
+                this.$store.commit('updateValue', {field: 'beasiswa', value:strJson})
+            },
+            changeBeasiswaTahunSelesai: function(idx, value){
+                this.beasiswa[idx].tahun_selesai = value;
+                let strJson = JSON.stringify(this.beasiswa);
+                this.$store.commit('updateValue', {field: 'beasiswa', value:strJson})
+            },
+            getDataPrestasi: function(){
+                let strPrestasi = this.$parent.$store.getters.siswa.prestasi;
+                if(strPrestasi != ''){
+                    let prestasiObj = JSON.parse(strPrestasi);
+                    this.prestasi = prestasiObj;
+                    console.log(prestasiObj)
+                }
 
             },
+            getDataBeasiswa: function(){
+                let strBeasiswa = this.$parent.$store.getters.siswa.beasiswa;
+                console.log(strBeasiswa)
+                if(strBeasiswa != ''){
+                    let besiswaObj = JSON.parse(strBeasiswa);
+                    this.beasiswa = besiswaObj;
+                }
+            }
+
         },
-        mounted(){
-//            $('input[name=tahun_prestasi]').datetimepicker({
-//                viewMode: 'years',
-//                format: 'YYYY'
-//            }).on('dp.change', function(e, target){
-//                console.log(e)
-////                vm.tahun_ijazah = e.date.format('YYYY');
-//            });
-//            $('input[name=tahun_mulai]').datetimepicker({
-//                viewMode: 'years',
-//                format: 'YYYY'
-//            }).on('dp.change', function(e){
-////                vm.tahun_ijazah = e.date.format('YYYY');
-//            });
-//            $('input[name=tahun_selesai]').datetimepicker({
-//                viewMode: 'years',
-//                format: 'YYYY'
-//            }).on('dp.change', function(e){
-////                vm.tahun_ijazah = e.date.format('YYYY');
-//            });
+        mounted: {
+
+        },
+        beforeMount: function(){
+
+        },
+        created: function(){
+
         }
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .form-informasi{
         h5{
             font-weight: bold;

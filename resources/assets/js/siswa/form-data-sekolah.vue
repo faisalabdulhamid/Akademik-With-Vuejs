@@ -60,14 +60,56 @@
         name: "FormSekolah",
         data: function(){
             return{
-                diterima_grade: '',
-                diterima_tanggal: '',
-                asal_sekolah: '',
-                tahun_ijazah: '',
-                nomor_ijazah: '',
+//                diterima_grade: '',
+//                diterima_tanggal: '',
+//                asal_sekolah: '',
+//                tahun_ijazah: '',
+//                nomor_ijazah: '',
                 errors: null,
                 grade:[]
             }
+        },
+        computed: {
+            diterima_grade: {
+                get: function(){
+                    return this.$store.state.Siswa.siswa.diterima_grade
+                },
+                set: function(value){
+                    this.$store.commit('updateValue', {field: 'diterima_grade', value})
+                }
+            },
+            diterima_tanggal: {
+                get: function(){
+                    return this.$store.state.Siswa.siswa.diterima_tanggal
+                },
+                set: function(value){
+                    this.$store.commit('updateValue', {field: 'diterima_tanggal', value})
+                }
+            },
+            asal_sekolah: {
+                get: function(){
+                    return this.$store.state.Siswa.siswa.asal_sekolah
+                },
+                set: function(value){
+                    this.$store.commit('updateValue', {field: 'asal_sekolah', value})
+                }
+            },
+            tahun_ijazah: {
+                get: function(){
+                    return this.$store.state.Siswa.siswa.tahun_ijazah
+                },
+                set: function(value){
+                    this.$store.commit('updateValue', {field: 'tahun_ijazah', value})
+                }
+            },
+            nomor_ijazah: {
+                get: function(){
+
+                },
+                set: function(){
+
+                }
+            },
         },
         watch: {
             diterima_grade(value){
@@ -130,7 +172,7 @@
             this.validator = new Validator({
                 diterima_grade: '',
                 diterima_tanggal: 'date_format:DD-MM-YYYY',
-                asal_sekolah: 'alpha_num|alpha_spaces',
+                asal_sekolah: '',
                 tahun_ijazah: 'digits:4',
                 nomor_ijazah: '',
             });

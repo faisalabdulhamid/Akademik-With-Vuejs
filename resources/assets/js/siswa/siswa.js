@@ -2,10 +2,6 @@
  * Created by FAISAL ABDUL HAMID on 26/08/2017.
  */
 import Index from './index.vue';
-import Create from './create.vue';
-import Edit from './edit.vue';
-import Show from './show.vue';
-import Destroy from './destroy.vue';
 
 import VueFormWizard from 'vue-form-wizard'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
@@ -20,6 +16,9 @@ require('select2');
 require('../bootstrap');
 
 window.Vue = require('vue');
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+
 
 const config = {
     errorBagName: 'errors', // change if property conflicts.
@@ -48,10 +47,6 @@ Vue.use(VeeValidate, config);
 Vue.use(VueFormWizard)
 
 Vue.component('index', Index);
-Vue.component('create', Create);
-Vue.component('edit', Edit);
-Vue.component('show', Show);
-Vue.component('destroy', Destroy);
 Vue.component('pulse-loader', require('vue-spinner/src/PulseLoader.vue'));
 
 const app = new Vue({

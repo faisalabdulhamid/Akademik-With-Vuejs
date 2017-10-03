@@ -133,24 +133,137 @@
         name: "FormWali",
         data: function(){
             return{
-                ayah: '',
-                telepon_ayah: '',
-                pendidikan_ayah: '',
-                pekerjaan_ayah: '',
-                ibu: '',
-                telepon_ibu: '',
-                pendidikan_ibu: '',
-                pekerjaan_ibu: '',
-                alamat_orang_tua: '',
-                telepon_wali: '',
-                wali: '',
-                pendidikan_wali: '',
-                pekerjaan_wali: '',
-                alamat_wali: '',
+//                ayah: '',
+//                telepon_ayah: '',
+//                pendidikan_ayah: '',
+//                pekerjaan_ayah: '',
+//                ibu: '',
+//                telepon_ibu: '',
+//                pendidikan_ibu: '',
+//                pekerjaan_ibu: '',
+//                alamat_orang_tua: '',
+//                telepon_wali: '',
+//                wali: '',
+//                pendidikan_wali: '',
+//                pekerjaan_wali: '',
+//                alamat_wali: '',
                 errors: null,
             }
         },
-
+        computed: {
+            ayah: {
+                get: function(){
+                    return this.$store.state.Siswa.siswa.ayah
+                },
+                set: function(value){
+                    this.$store.commit('updateValue', {field: 'ayah', value})
+                }
+            },
+            telepon_ayah: {
+                get: function(){
+                    return this.$store.state.Siswa.siswa.telepon_ayah
+                },
+                set: function(value){
+                    this.$store.commit('updateValue', {field: 'telepon_ayah', value})
+                }
+            },
+            pendidikan_ayah: {
+                get: function(){
+                    return this.$store.state.Siswa.siswa.pendidikan_ayah
+                },
+                set: function(value){
+                    this.$store.commit('updateValue', {field: 'pendidikan_ayah', value})
+                }
+            },
+            pekerjaan_ayah: {
+                get: function(){
+                    return this.$store.state.Siswa.siswa.pekerjaan_ayah
+                },
+                set: function(value){
+                    this.$store.commit('updateValue', {field: 'pekerjaan_ayah', value})
+                }
+            },
+            ibu: {
+                get: function(){
+                    return this.$store.state.Siswa.siswa.ibu
+                },
+                set: function(value){
+                    this.$store.commit('updateValue', {field: 'ibu', value})
+                }
+            },
+            telepon_ibu: {
+                get: function(){
+                    return this.$store.state.Siswa.siswa.telepon_ibu
+                },
+                set: function(value){
+                    this.$store.commit('updateValue', {field: 'telepon_ibu', value})
+                }
+            },
+            pendidikan_ibu: {
+                get: function(){
+                    return this.$store.state.Siswa.siswa.pendidikan_ibu
+                },
+                set: function(value){
+                    this.$store.commit('updateValue', {field: 'pendidikan_ibu', value})
+                }
+            },
+            pekerjaan_ibu: {
+                get: function(){
+                    return this.$store.state.Siswa.siswa.pekerjaan_ibu
+                },
+                set: function(value){
+                    this.$store.commit('updateValue', {field: 'pekerjaan_ibu', value})
+                }
+            },
+            alamat_orang_tua: {
+                get: function(){
+                    return this.$store.state.Siswa.siswa.alamat_orang_tua
+                },
+                set: function(value){
+                    this.$store.commit('updateValue', {field: 'alamat_orang_tua', value})
+                }
+            },
+            wali: {
+                get: function(){
+                    return this.$store.state.Siswa.siswa.wali
+                },
+                set: function(value){
+                    this.$store.commit('updateValue', {field: 'wali', value})
+                }
+            },
+            telepon_wali: {
+                get: function(){
+                    return this.$store.state.Siswa.siswa.telepon_wali
+                },
+                set: function(value){
+                    this.$store.commit('updateValue', {field: 'telepon_wali', value})
+                }
+            },
+            pendidikan_wali: {
+                get: function(){
+                    return this.$store.state.Siswa.siswa.pendidikan_wali
+                },
+                set: function(value){
+                    this.$store.commit('updateValue', {field: 'pendidikan_wali', value})
+                }
+            },
+            pekerjaan_wali: {
+                get: function(){
+                    return this.$store.state.Siswa.siswa.pekerjaan_wali
+                },
+                set: function(value){
+                    this.$store.commit('updateValue', {field: 'pekerjaan_wali', value})
+                }
+            },
+            alamat_wali: {
+                get: function(){
+                    return this.$store.state.Siswa.siswa.alamat_wali
+                },
+                set: function(value){
+                    this.$store.commit('updateValue', {field: 'alamat_wali', value})
+                }
+            },
+        },
         watch: {
             ayah(value){
                 this.validator.validate('ayah', value);
@@ -210,20 +323,6 @@
                     pekerjaan_wali: this.pekerjaan_wali,
                 });
 
-                this.model.ayah= this.ayah;
-                this.model.telepon_ayah= this.telepon_ayah;
-                this.model.pendidikan_ayah= this.pendidikan_ayah;
-                this.model.pekerjaan_ayah= this.pekerjaan_ayah;
-                this.model.ibu= this.ibu;
-                this.model.telepon_ibu= this.telepon_ibu;
-                this.model.pendidikan_ibu= this.pendidikan_ibu;
-                this.model.pekerjaan_ibu= this.pekerjaan_ibu;
-                this.model.alamat_orang_tua= this.alamat_orang_tua;
-                this.model.wali= this.wali;
-                this.model.telepon_wali= this.telepon_wali;
-                this.model.pendidikan_wali= this.pendidikan_wali;
-                this.model.pekerjaan_wali= this.pekerjaan_wali;
-
                 let isValid = this.errors.items.length;
                 if(isValid == 0)
                 {
@@ -255,25 +354,12 @@
             this.$set(this, 'errors', this.validator.errors);
         },
         mounted(){
-//            $('select[name=pendidikan_ayah]').select2({
-//                dropdownParent: $("#form-create"),
-//                placeholder: "Select Pendidikan"
-//            });
-//            $('select[name=pendidikan_ibu]').select2({
-//                dropdownParent: $("#form-create"),
-//                placeholder: "Select Pendidikan"
-//            });
-//            $('select[name=pendidikan_wali]').select2({
-//                dropdownParent: $("#form-create"),
-//                placeholder: "Select Pendidikan"
-//            });
             $('select[name*=pekerjaan]').select2({
                 dropdownParent: $("#form-create"),
                 placeholder: "Select Pekerjaan",
                 ajax: {
                     url: 'api/pekerjaan/cari',
                     dataType: 'json',
-//                    delay: 250,
                     data: function(params){
                         var query = {
                             search: params.term,
@@ -306,7 +392,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     select{
         width: 100%;
     }
