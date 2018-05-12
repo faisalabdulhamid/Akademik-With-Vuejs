@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrangTua extends Model
 {
-    protected $table = "orang_tua";
+    protected $table = 'orang_tua';
 //    protected $hidden = ['password'];
 //    protected $guard = 'ortu';
 

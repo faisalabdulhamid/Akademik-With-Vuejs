@@ -11,10 +11,12 @@ use Yajra\Datatables\Facades\Datatables;
 class TahunAjaranController extends Controller
 {
     protected $tahun;
+
     public function __construct(TahunAjaran $tahunAjaran)
     {
         $this->tahun = $tahunAjaran;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,10 +24,10 @@ class TahunAjaranController extends Controller
      */
     public function index()
     {
-        if(request()->ajax()){
-
+        if (request()->ajax()) {
             return Datatables::of($this->tahun->query())->make(true);
         }
+
         return view('tahun-ajaran.index');
     }
 
@@ -36,10 +38,9 @@ class TahunAjaranController extends Controller
      */
     public function create()
     {
-
-        return fractal($this->tahun, function(TahunAjaran $tahun){
+        return fractal($this->tahun, function (TahunAjaran $tahun) {
             return [
-                'id' => $tahun->id,
+                'id'           => $tahun->id,
                 'tahun_ajaran' => $tahun->tahun_ajaran,
             ];
         });
@@ -48,13 +49,14 @@ class TahunAjaranController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $this->validate($request, [
-            'tahun_ajaran' => 'required'
+            'tahun_ajaran' => 'required',
         ]);
 
         TahunAjaran::firstOrCreate(['tahun_ajaran'=>$request->tahun_ajaran]);
@@ -67,17 +69,19 @@ class TahunAjaranController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $tahun = TahunAjaran::find($id);
-        return fractal($tahun, function(TahunAjaran $tahun){
+
+        return fractal($tahun, function (TahunAjaran $tahun) {
             return [
-                'id' => $tahun->id,
+                'id'           => $tahun->id,
                 'tahun_ajaran' => $tahun->tahun_ajaran,
-                'status' => $tahun->status,
+                'status'       => $tahun->status,
             ];
         });
     }
@@ -85,7 +89,8 @@ class TahunAjaranController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -96,14 +101,14 @@ class TahunAjaranController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-
-        DB::transaction(function() use($id){
+        DB::transaction(function () use ($id) {
             DB::table('tahun_ajaran')->update(['status' => null]);
 
             $tahun = TahunAjaran::findOrFail($id);
@@ -112,15 +117,16 @@ class TahunAjaranController extends Controller
         });
 
         return response()->json([
-            'saved' => true,
-            'message' => ''
+            'saved'   => true,
+            'message' => '',
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

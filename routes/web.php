@@ -17,38 +17,35 @@ Route::resource('siswa', 'SiswaController');
 Route::resource('kelas', 'KelasController');
 //Route::resource('pegawai', 'PegawaiController');
 
-Route::namespace('Master')->group(function(){
+Route::namespace('Master')->group(function () {
     Route::resource('tahun-ajaran', 'TahunAjaranController');
     Route::resource('grade', 'GradeController');
     Route::resource('tingkat', 'TingkatController');
 });
 
-
 //Validate
-Route::get('siswa/validate/nis/{nis}', function($nis){
+Route::get('siswa/validate/nis/{nis}', function ($nis) {
     $exists = App\Models\Siswa::find($nis);
-    if($exists)
+    if ($exists) {
         return false;
-    else
+    } else {
         return true;
+    }
 });
 
 //Pilih Wali Kelas {Kelas}
-Route::get('wali-kelas', function(){
-    if(request()->ajax()){
-        return fractal(App\Models\Pegawai::all(), function(App\Models\Pegawai $waliKelas){
+Route::get('wali-kelas', function () {
+    if (request()->ajax()) {
+        return fractal(App\Models\Pegawai::all(), function (App\Models\Pegawai $waliKelas) {
             return [
-                'id' => $waliKelas->nip,
-                'name' => $waliKelas->nama
+                'id'   => $waliKelas->nip,
+                'name' => $waliKelas->nama,
             ];
         })->toJson();
     }
 });
 
-
 //Route::post('login', 'Auth@login')->name('login');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-

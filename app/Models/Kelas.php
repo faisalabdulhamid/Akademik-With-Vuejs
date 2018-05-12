@@ -14,7 +14,7 @@ class Kelas extends Model
 {
     use SoftDeletes;
     use LogsActivity;
-    protected $table = "kelas";
+    protected $table = 'kelas';
     protected $fillable = ['kelas', 'nip_wali'];
 
     protected $dates = ['deleted_at'];
@@ -54,7 +54,7 @@ class Kelas extends Model
     {
         parent::boot();
 
-        static::creating(function($kelasa){
+        static::creating(function ($kelasa) {
             $kelasa->tahun_ajaran_id = TahunAjaran::where('status', 1)->first()['id'];
         });
 

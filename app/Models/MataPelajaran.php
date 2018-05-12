@@ -11,7 +11,7 @@ class MataPelajaran extends Model
 {
     use SoftDeletes;
     use LogsActivity;
-    protected $table = "mata_pelajaran";
+    protected $table = 'mata_pelajaran';
 
     protected $dates = ['deleted_at'];
 

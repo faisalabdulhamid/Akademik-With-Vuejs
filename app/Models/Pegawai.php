@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
@@ -13,7 +13,7 @@ class Pegawai extends Authenticatable
     use LogsActivity;
     use EntrustUserTrait;
 //    protected $guard = 'pegawai';
-    protected $table = "pegawai";
+    protected $table = 'pegawai';
     protected $primaryKey = 'nip';
     protected $visible = ['nip', 'nama'];
     public $incrementing = false;

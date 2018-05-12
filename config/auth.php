@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'guru',
+        'guard'     => 'guru',
         'passwords' => 'users',
     ],
 
@@ -37,24 +37,24 @@ return [
 
     'guards' => [
         'guru' => [
-            'driver' => 'session',
+            'driver'   => 'session',
             'provider' => 'pegawai',
         ],
         'staff' => [
-            'driver' => 'session',
+            'driver'   => 'session',
             'provider' => 'pegawai',
         ],
         'siswa' => [
-            'driver' => 'session',
+            'driver'   => 'session',
             'provider' => 'siswa',
         ],
         'ortu' => [
-            'driver' => 'session',
+            'driver'   => 'session',
             'provider' => 'ortu',
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver'   => 'token',
             'provider' => 'users',
         ],
     ],
@@ -79,15 +79,15 @@ return [
     'providers' => [
         'pegawai' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Pegawai::class,
+            'model'  => App\Models\Pegawai::class,
         ],
         'siswa' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Siswa::class,
+            'model'  => App\Models\Siswa::class,
         ],
         'ortu' => [
             'driver' => 'eloquent',
-            'model' => App\Models\OrangTua::class,
+            'model'  => App\Models\OrangTua::class,
         ],
 
         // 'users' => [
@@ -114,8 +114,8 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
+            'table'    => 'password_resets',
+            'expire'   => 60,
         ],
     ],
 

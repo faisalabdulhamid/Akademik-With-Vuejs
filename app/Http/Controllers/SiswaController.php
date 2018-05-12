@@ -10,11 +10,13 @@ class SiswaController extends Controller
 {
     protected $siswa;
 
-    public function __construct(Siswa $siswa){
+    public function __construct(Siswa $siswa)
+    {
         $this->middleware(['auth']);
 
         $this->siswa = $siswa;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,19 +24,20 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        if(request()->ajax()){
-            if(request()->kelas == 'all'){
+        if (request()->ajax()) {
+            if (request()->kelas == 'all') {
                 return Datatables::of($this->siswa->select(['nis', 'nama', 'jenis_kelamin']))->make(true);
-            }else{
+            } else {
                 $kelas = request()->kelas;
                 $siswa = $this->siswa->select(['nis', 'nama', 'jenis_kelamin'])
-                    ->whereHas('kelas', function($q) use($kelas){
+                    ->whereHas('kelas', function ($q) use ($kelas) {
                         $q->where('id', $kelas);
                     });
+
                 return Datatables::of($siswa)->make(true);
             }
-
         }
+
         return view('siswa.index');
     }
 
@@ -45,27 +48,27 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        return fractal($this->siswa, function(Siswa $siswa){
+        return fractal($this->siswa, function (Siswa $siswa) {
             return [
-                'nis' => ' ',
-                'nisn' => ' ',
-                'nama' => '',
-                'jenis_kelamin' => '',
-                'tempat_lahir' => '',
-                'tanggal_lahir' => '',
-                'agama' => '',
-                'anak_ke' => '',
-                'status_keluarga' => '',
-                'alamat' => '',
-                'diterima_grade' => '',
+                'nis'              => ' ',
+                'nisn'             => ' ',
+                'nama'             => '',
+                'jenis_kelamin'    => '',
+                'tempat_lahir'     => '',
+                'tanggal_lahir'    => '',
+                'agama'            => '',
+                'anak_ke'          => '',
+                'status_keluarga'  => '',
+                'alamat'           => '',
+                'diterima_grade'   => '',
                 'diterima_tanggal' => '',
-                'asal_sekolah' => '',
-                'tahun_ijazah' => '',
-                'nomor_ijazah' => '',
-                'foto' => '',
-                'status_belajar' => '',
-                'telepon' => '',
-                'email' => ''
+                'asal_sekolah'     => '',
+                'tahun_ijazah'     => '',
+                'nomor_ijazah'     => '',
+                'foto'             => '',
+                'status_belajar'   => '',
+                'telepon'          => '',
+                'email'            => '',
             ];
         });
     }
@@ -73,7 +76,8 @@ class SiswaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -84,14 +88,15 @@ class SiswaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return fractal($this->siswa->find($id), function(Siswa $siswa){
+        return fractal($this->siswa->find($id), function (Siswa $siswa) {
             return [
-                'nis' => $siswa->nis,
+                'nis'  => $siswa->nis,
                 'nama' => $siswa->nama,
             ];
         });
@@ -100,7 +105,8 @@ class SiswaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -111,8 +117,9 @@ class SiswaController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -123,7 +130,8 @@ class SiswaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
