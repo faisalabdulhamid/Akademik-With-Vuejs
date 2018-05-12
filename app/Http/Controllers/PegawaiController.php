@@ -8,10 +8,12 @@ use Illuminate\Http\Request;
 class PegawaiController extends Controller
 {
     protected $pegawai;
+
     public function __construct(Pegawai $pegawai)
     {
         $this->$pegawai = $pegawai;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,10 +21,10 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        if(request()->ajax()){
-            return fractal(Pegawai::all(), function(Pegawai $pegawai){
+        if (request()->ajax()) {
+            return fractal(Pegawai::all(), function (Pegawai $pegawai) {
                 return [
-                    'nip' => $pegawai->nip,
+                    'nip'  => $pegawai->nip,
                     'nama' => $pegawai->nama,
                 ];
             })->toJson();
@@ -49,7 +51,8 @@ class PegawaiController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -60,7 +63,8 @@ class PegawaiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Pegawai  $pegawai
+     * @param \App\Models\Pegawai $pegawai
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Pegawai $pegawai)
@@ -71,7 +75,8 @@ class PegawaiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Pegawai  $pegawai
+     * @param \App\Models\Pegawai $pegawai
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Pegawai $pegawai)
@@ -82,8 +87,9 @@ class PegawaiController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pegawai  $pegawai
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Pegawai      $pegawai
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Pegawai $pegawai)
@@ -94,7 +100,8 @@ class PegawaiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Pegawai  $pegawai
+     * @param \App\Models\Pegawai $pegawai
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Pegawai $pegawai)

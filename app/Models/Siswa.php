@@ -11,7 +11,7 @@ class Siswa extends Model
     use SoftDeletes;
 //    use LogsActivity;
 
-    protected $table = "siswa";
+    protected $table = 'siswa';
     protected $primaryKey = 'nis';
     public $incrementing = false;
     protected $hidden = ['password'];
@@ -23,13 +23,14 @@ class Siswa extends Model
     {
         return $this->hasMany(OrangTua::class, 'nis');
     }
+
     public function diterimaGrade()
     {
         return $this->belongsTo(Grade::class, 'diterima_grade');
     }
+
     public function kelas()
     {
         return $this->belongsToMany(Kelas::class, 'kelas_siswa', 'nis', 'kelas_id');
     }
-
 }

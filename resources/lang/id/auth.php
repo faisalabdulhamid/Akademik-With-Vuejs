@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'Username (NIP / NIS / Email) atau Password yang anda masukan salah',
+    'failed'   => 'Username (NIP / NIS / Email) atau Password yang anda masukan salah',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
 ];
